@@ -52,7 +52,14 @@ pg_freespace(PG_FUNCTION_ARGS)
 	Oid			relid  = PG_GETARG_OID(0);
 	int64		blkno  = PG_GETARG_INT64(1);
 
-	Datum retval;
+	/*
+	 * HASKELL GENERATED:
+	 *
+	 * Teach a mapping to the C generator from types like HSInt => postgres
+	 * defined types. This is here just to get a tiny bit of type checking from
+	 * gcc. (Dynamic portion: OutputCTypeSym)
+	 */
+	OutputCTypeSym retval;
 	
 	/* 
 	 * HASKELL GENERATED: 
@@ -75,5 +82,9 @@ pg_freespace(PG_FUNCTION_ARGS)
 		 */
 	}
 
+	/*
+	 * Must know how to extract a datum from the type involved (generally part
+	 * of the macro)
+	 */
 	PG_RETURN_CTypeSym(retval);
 }

@@ -1,11 +1,13 @@
 {-# LANGUAGE ForeignFunctionInterface #-}
 module HelloPostgres where
+import Foreign.C.Types
+import Data.Int
+foreign export ccall foo :: Int16 -> IO Int16
 
-foreign export ccall foo :: Int -> IO Int
+foo :: Int16 -> IO Int16
+--foo n = return (length (f n))
+foo n = (return . fromIntegral . length . f) n
 
-foo :: Int -> IO Int
-foo n = return (length (f n))
-
-f :: Int -> [Int]
+f :: Int16 -> [Int16]
 f 0 = []
 f n = n:(f (n-1))

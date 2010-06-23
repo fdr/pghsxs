@@ -8,6 +8,7 @@
  */
 #include "postgres.h"
 
+/* I think only funcapi is necessary here */
 #include "access/heapam.h"
 #include "funcapi.h"
 #include "storage/block.h"
@@ -21,26 +22,58 @@ Datum		pg_freespace(PG_FUNCTION_ARGS);
 /*
  * Returns the amount of free space on a given page, according to the
  * free space map.
+ *
+ * HASKELL GENERATED:
+ *
+ * Mostly static (except synname):
+ *
+ * PG_FUNCTION_INFO_V1(symname);
  */
 PG_FUNCTION_INFO_V1(pg_freespace);
 
+/*
+ * HASKELL GENERATED:
+ *
+ * (mostly static, except symname)
+ *
+ * Datum
+ * symname(PG_FUNCTION_ARGS)
+ */
 Datum
 pg_freespace(PG_FUNCTION_ARGS)
 {
-	Oid			relid = PG_GETARG_OID(0);
-	int64		blkno = PG_GETARG_INT64(1);
-	int16		freespace;
-	Relation	rel;
+	/* 
+	 * HASKELL GENERATED: 
+	 *
+	 * (May also have to generate the PG_GETARG_CTypeSym Macro)
+	 *
+	 * CTypeSym gensym = PG_GETARG_CTypeSym
+	 */
+	Oid			relid  = PG_GETARG_OID(0);
+	int64		blkno  = PG_GETARG_INT64(1);
 
-	rel = relation_open(relid, AccessShareLock);
+	Datum retval;
+	
+	/* 
+	 * HASKELL GENERATED: 
+	 *
+	 * Prelude Args can be useful for passing additional interesting
+	 * information or out-parameters like ErrData. Retval may be nonsensical
+	 * should errdata be set. I think it's okay to have a fixed number of
+	 * prelude args that every haskell function gets for free (ex: suppose
+	 * haskell wants to know the current memory context).
+	 *
+	 * mangled_func_name(prelude_arg0, prelude_arg1, gensym_arg0, gensym_argn);
+	 */
+	retval = call_my_hs_function(&errdata, relid, blkno, ...);
 
-	if (blkno < 0 || blkno > MaxBlockNumber)
-		ereport(ERROR,
-				(errcode(ERRCODE_INVALID_PARAMETER_VALUE),
-				 errmsg("invalid block number")));
+	/* Static C boilerplate, assuming prelude arg0 is the error data structure */
+	if (prelude_arg0 != NULL) {
+		/*
+		 * Stuff to raise the error from errdata structures via
+		 * longjmp-wrapping PG Constructs
+		 */
+	}
 
-	freespace = GetRecordedFreeSpace(rel, blkno);
-
-	relation_close(rel, AccessShareLock);
-	PG_RETURN_INT16(freespace);
+	PG_RETURN_CTypeSym(retval);
 }
