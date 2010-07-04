@@ -14,6 +14,8 @@ Datum		pg_hs_init(PG_FUNCTION_ARGS);
 PG_FUNCTION_INFO_V1(pg_finestructure);
 PG_FUNCTION_INFO_V1(pg_hs_init);
 
+extern void __stginit_HS42(void);
+
 Datum
 pg_hs_init(PG_FUNCTION_ARGS)
 {
