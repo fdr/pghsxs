@@ -16,7 +16,5 @@ include $(top_builddir)/src/Makefile.global
 include $(top_srcdir)/contrib/contrib-global.mk
 endif
 
-
-hs42:
-	ghc --make -shared -fPIC -no-hs-main -dynamic HS42.hs -o 42.so
-
+hs42: hsaux.o
+	ghc --make -shared -fPIC -no-hs-main -dynamic HS42.hs -o 42.so hsaux.o
