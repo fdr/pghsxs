@@ -1,9 +1,9 @@
 # Normal PGXS Section
 MODULE_big = pg_freespacemap
-OBJS	= pg_freespacemap.o
+OBJS = pg_freespacemap.o
 
-DATA_built = pg_freespacemap.sql 
-DATA = uninstall_pg_freespacemap.sql 
+DATA_built = pg_freespacemap.sql
+DATA = uninstall_pg_freespacemap.sql
 
 ifdef USE_PGXS
 PG_CONFIG = pg_config
@@ -16,4 +16,7 @@ include $(top_builddir)/src/Makefile.global
 include $(top_srcdir)/contrib/contrib-global.mk
 endif
 
-# Haskell-flavored
+
+hs42:
+	ghc --make -shared -fPIC -no-hs-main -dynamic HS42.hs -o 42.so
+
