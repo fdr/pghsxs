@@ -19,7 +19,9 @@ extern void __stginit_HS42(void);
 Datum
 pg_hs_init(PG_FUNCTION_ARGS)
 {
-	hs_init(NULL, NULL);
+	int argc = 0;
+	char *argv[] = {};
+	hs_init(&argc, &argv);
 
 #ifdef __GLASGOW_HASKELL__
 	hs_add_root(__stginit_HS42);
