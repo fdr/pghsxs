@@ -14,6 +14,7 @@ PG_FUNCTION_INFO_V1(pg_finestructure);
 
 extern void __stginit_HS42(void);
 extern void _PG_init(void);
+extern void _PG_fini(void);
 
 void
 _PG_init(void)
@@ -28,6 +29,12 @@ _PG_init(void)
 #ifdef __GLASGOW_HASKELL__
 	hs_add_root(__stginit_HS42);
 #endif
+}
+
+void
+_PG_fini(void)
+{
+	hs_exit();
 }
 
 Datum
